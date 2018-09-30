@@ -1,27 +1,24 @@
 const { get } = require('axios');
 const should = require('should');
 
-const cases = [
-  { a : 5, r : 5},
-  { a : 7, r : 7},
-  { a : 8, r : 8},
-  { a : 12, r : 12}
-];
+const cases = [...Array(30).keys()];
 const URLs = [
   'http://kodaktor.ru/api2/there/',
   'http://kodaktor.ru/api2/andba/',
 ];
 const headers = {'Content-Type' : 'application/json'};
 
-cases.forEach(({a, r}) => {
+cases.forEach((el) => {
+  let a = el;
   describe('asyncFunc', () => {
-    it(`should return ${r} when ${a} is entered`, async () => {
+    it(`should return the same number that was entered - ${el}`, async () => {
       for (url of URLs) {
         const { data : res} = await get(url+a, {headers});
         a = res;
-        console.log(a);
+        //console.log(a);
       }
-      a.should.equal(r);
+      //console.log(el);
+      a.should.equal(el);
     });
   });
 });
